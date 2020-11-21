@@ -1,5 +1,7 @@
 #include <PololuMenu.h>
 
+#include <PololuMenu.h>
+
 // A simple example of customizable menus using an 8x2 LCD,
 // buzzer, and buttons.
 //
@@ -96,12 +98,16 @@ void setup()
   // sizeof(items)/sizeof(items[0]))
   menu.setItems(items, 2);
 
-  // Attach the LCD, buzzer, and buttons.  All are optional, but
-  // there's probably not much reason to use this library without an
-  // LCD and at least two buttons.
+  // Attach the LCD and buttons.  All are optional, but there's
+  // probably not much reason to use this library without an LCD and
+  // at least two buttons.
   menu.setLcd(lcd);
-  menu.setBuzzer(buzzer);
-  menu.setButtons(buttonA, buttonB, buttonC);
+  menu.setButtonB(buttonB);
+  menu.setButtonC(buttonC);
+
+  // Customize the second line to not show an A, since we are not
+  // using that button.
+  menu.setSecondLine(F("   *B C>"));
 }
 
 void loop()

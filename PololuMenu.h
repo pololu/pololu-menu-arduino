@@ -17,7 +17,7 @@ public:
 
   struct Item
   {
-    const char * name;
+    const __FlashStringHelper * name;
     void (* action)();
   };
 
@@ -53,6 +53,15 @@ public:
   // be called repeatedly in a loop.
   char buttonMonitor();
 
+  // Set the second line of text to be displayed below each menu
+  // option.  By default it displays "<A .B C>".  To replace the
+  // special characters with nicer arrows and a dot, you could
+  // use F("\x7f" "A \xa5" "B C\x7e").
+  void setSecondLine(__FlashStringHelper * text)
+  {
+    secondLine = text;
+  }
+
 private:
   Item * items;
   uint8_t itemCount;
@@ -62,6 +71,7 @@ private:
   PushbuttonBase * buttonA;
   PushbuttonBase * buttonB;
   PushbuttonBase * buttonC;
+  __FlashStringHelper * secondLine;
 
   bool lcdNeedsUpdate = true;
 };

@@ -28,7 +28,10 @@ void PololuMenu::lcdUpdate(uint8_t index)
   lcd->clear();
   lcd->print(items[index].name);
   lcd->gotoXY(0, 1);
-  lcd->print(F("\x7f" "A \xa5" "B C\x7e"));
+  if(secondLine != NULL)
+    lcd->print(secondLine);
+  else
+    lcd->print(F("<A *B C>"));
 }
 
 void PololuMenu::setButtonA(PushbuttonBase & button)
