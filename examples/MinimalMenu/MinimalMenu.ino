@@ -1,7 +1,5 @@
 #include <PololuMenu.h>
 
-#include <PololuMenu.h>
-
 // A simple example of customizable menus using an 8x2 LCD,
 // buzzer, and buttons.
 //
