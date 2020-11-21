@@ -1,10 +1,9 @@
 #include <PololuMenu.h>
 
-// A simple example of customizable menus using an 8x2 LCD,
+// A minimal example of customizable menus using an 8x2 LCD,
 // buzzer, and buttons.
 //
-// Buttons A and C are used to move left and right; B
-// selects a menu option.
+// Button C moves to the next option; B selects.
 //
 // Uncomment one of the following sections for your
 // platform, or customize your own.
@@ -15,8 +14,6 @@
 /*
 #include <Pololu3piPlus32U4.h>
 Pololu3piPlus32U4::LCD lcd;
-Pololu3piPlus32U4::Buzzer buzzer;
-Pololu3piPlus32U4::ButtonA buttonA;
 Pololu3piPlus32U4::ButtonB buttonB;
 Pololu3piPlus32U4::ButtonC buttonC;
 */
@@ -27,8 +24,6 @@ Pololu3piPlus32U4::ButtonC buttonC;
 
 #include <Zumo32U4.h>
 Zumo32U4LCD lcd;
-Zumo32U4Buzzer buzzer;
-Zumo32U4ButtonA buttonA;
 Zumo32U4ButtonB buttonB;
 Zumo32U4ButtonC buttonC;
 */
@@ -39,8 +34,6 @@ Zumo32U4ButtonC buttonC;
 
 #include <Balboa32U4.h>
 Balboa32U4LCD lcd;
-Balboa32U4Buzzer buzzer;
-Balboa32U4ButtonA buttonA;
 Balboa32U4ButtonB buttonB;
 Balboa32U4ButtonC buttonC;
 */
@@ -51,8 +44,6 @@ Balboa32U4ButtonC buttonC;
 
 #include <AStar32U4.h>
 AStar32U4LCD lcd;
-Balboa32U4Buzzer buzzer;
-AStar32U4ButtonA buttonA;
 AStar32U4ButtonB buttonB;
 AStar32U4ButtonC buttonC;
 */
@@ -100,8 +91,8 @@ void setup()
   // probably not much reason to use this library without an LCD and
   // at least two buttons.
   menu.setLcd(lcd);
-  menu.setButtonB(buttonB);
-  menu.setButtonC(buttonC);
+  menu.setSelectButton(buttonB, 'B');
+  menu.setNextButton(buttonC, 'C');
 
   // Customize the second line to not show an A, since we are not
   // using that button.

@@ -11,9 +11,9 @@
 class PololuMenu
 {
 public:
-  static const char beepButtonA[] PROGMEM;
-  static const char beepButtonB[] PROGMEM;
-  static const char beepButtonC[] PROGMEM;
+  static const char beepPrevious[] PROGMEM;
+  static const char beepSelect[] PROGMEM;
+  static const char beepNext[] PROGMEM;
 
   struct Item
   {
@@ -21,19 +21,35 @@ public:
     void (* action)();
   };
 
+  void restart();
   void setItems(Item * items, uint8_t itemCount);
 
   void setLcd(PololuHD44780Base &);
   void setBuzzer(PololuBuzzer &);
-  void setButtonA(PushbuttonBase & a);
-  void setButtonB(PushbuttonBase & b);
-  void setButtonC(PushbuttonBase & c);
 
-  void setButtons(PushbuttonBase & a, PushbuttonBase & b, PushbuttonBase & c)
+  void setPreviousButton(PushbuttonBase &b, char name)
   {
-    setButtonA(a);
-    setButtonB(b);
-    setButtonC(c);
+    previousButton = &b;
+    previousButtonName = name;
+  }
+
+  void setSelectButton(PushbuttonBase &b, char name)
+  {
+    selectButton = &b;
+    selectButtonName = name;
+  }
+
+  void setNextButton(PushbuttonBase &b, char name)
+  {
+    nextButton = &b;
+    nextButtonName = name;
+  }
+
+  void setButtons(PushbuttonBase & previous, PushbuttonBase & select, PushbuttonBase & next)
+  {
+    setPreviousButton(previous, 'A');
+    setSelectButton(select, 'B');
+    setNextButton(next, 'C');
   }
 
   void lcdUpdate(uint8_t index);
@@ -68,9 +84,14 @@ private:
   uint8_t lcdItemIndex;
   PololuHD44780Base * lcd;
   PololuBuzzer * buzzer;
-  PushbuttonBase * buttonA;
-  PushbuttonBase * buttonB;
-  PushbuttonBase * buttonC;
+  PushbuttonBase * previousButton;
+  PushbuttonBase * selectButton;
+  PushbuttonBase * nextButton;
+
+  char previousButtonName;
+  char selectButtonName;
+  char nextButtonName;
+
   __FlashStringHelper * secondLine;
 
   bool lcdNeedsUpdate = true;

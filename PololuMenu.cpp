@@ -1,15 +1,20 @@
 #include <Arduino.h>
 #include <PololuMenu.h>
 
-static const char PololuMenu::beepButtonA[] PROGMEM = "!c32";
-static const char PololuMenu::beepButtonB[] PROGMEM = "!e32";
-static const char PololuMenu::beepButtonC[] PROGMEM = "!g32";
+static const char PololuMenu::beepPrevious[] PROGMEM = "!c32";
+static const char PololuMenu::beepSelect[] PROGMEM = "!e32";
+static const char PololuMenu::beepNext[] PROGMEM = "!g32";
 
 void PololuMenu::setItems(Item * items, uint8_t itemCount)
 {
   this->items = items;
   this->itemCount = itemCount;
+}
+
+void PololuMenu::restart()
+{
   lcdItemIndex = 0;
+  lcdNeedsUpdate = true;
 }
 
 void PololuMenu::setLcd(PololuHD44780Base & l)
@@ -34,21 +39,6 @@ void PololuMenu::lcdUpdate(uint8_t index)
     lcd->print(F("<A *B C>"));
 }
 
-void PololuMenu::setButtonA(PushbuttonBase & button)
-{
-  buttonA = &button;
-}
-
-void PololuMenu::setButtonB(PushbuttonBase & button)
-{
-  buttonB = &button;
-}
-
-void PololuMenu::setButtonC(PushbuttonBase & button)
-{
-  buttonC = &button;
-}
-
 void PololuMenu::action(uint8_t index)
 {
   items[index].action();
@@ -65,10 +55,10 @@ bool PololuMenu::select()
   // there are no button events.
   lcdNeedsUpdate = true;
 
-  switch (buttonMonitor())
+  char button = buttonMonitor();
+  if(button && button == previousButtonName)
   {
-  case 'A':
-    // The A button was pressed so decrement the index.
+    // The "previous" button was pressed so decrement the index.
     if (lcdItemIndex == 0)
     {
       lcdItemIndex = itemCount - 1;
@@ -78,9 +68,11 @@ bool PololuMenu::select()
       lcdItemIndex--;
     }
     return false;
+  }
 
-  case 'C':
-    // The C button was pressed so increase the index.
+  if(button && button == nextButtonName)
+  {
+    // The "next" button was pressed so increase the index.
     if (lcdItemIndex >= itemCount - 1)
     {
       lcdItemIndex = 0;
@@ -90,9 +82,11 @@ bool PololuMenu::select()
       lcdItemIndex++;
     }
     return false;
+  }
 
-  case 'B':
-    // The B button was pressed so run the item and return.
+  if(button && button == selectButtonName)
+  {
+    // The "select" button was pressed so run the item and return true.
     action(lcdItemIndex);
     return true;
   }
@@ -104,25 +98,25 @@ bool PololuMenu::select()
 
 char PololuMenu::buttonMonitor()
 {
-  if ((buttonA != NULL) && buttonA->getSingleDebouncedPress())
+  if ((previousButton != NULL) && previousButton->getSingleDebouncedPress())
   {
     if(buzzer != NULL)
-      buzzer->playFromProgramSpace(beepButtonA);
-    return 'A';
+      buzzer->playFromProgramSpace(beepPrevious);
+    return previousButtonName;
   }
 
-  if ((buttonB != NULL) && buttonB->getSingleDebouncedPress())
+  if ((selectButton != NULL) && selectButton->getSingleDebouncedPress())
   {
     if(buzzer != NULL)
-      buzzer->playFromProgramSpace(beepButtonB);
-    return 'B';
+      buzzer->playFromProgramSpace(beepSelect);
+    return selectButtonName;
   }
 
-  if ((buttonC != NULL) && buttonC->getSingleDebouncedPress())
+  if ((nextButton != NULL) && nextButton->getSingleDebouncedPress())
   {
     if(buzzer != NULL)
-      buzzer->playFromProgramSpace(beepButtonC);
-    return 'C';
+      buzzer->playFromProgramSpace(beepNext);
+    return nextButtonName;
   }
 
   return 0;
