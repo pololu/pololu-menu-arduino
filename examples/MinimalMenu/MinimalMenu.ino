@@ -8,10 +8,10 @@
 // Uncomment one of the following sections for your
 // platform, or customize your own.
 
+/*
 // For Pololu 3pi+ 32U4
 // https://www.pololu.com/3pi+
 
-/*
 #include <Pololu3piPlus32U4.h>
 Pololu3piPlus32U4::LCD lcd;
 Pololu3piPlus32U4::ButtonB buttonB;
