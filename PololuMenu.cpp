@@ -36,7 +36,26 @@ void PololuMenu::lcdUpdate(uint8_t index)
   if(secondLine != NULL)
     lcd->print(secondLine);
   else
-    lcd->print(F("<A *B C>"));
+  {
+    // Generate something based on the key names
+    if(previousButton)
+    {
+      lcd->print('<');
+      lcd->print(previousButtonName);
+    }
+    if(selectButton)
+    {
+      lcd->gotoXY(3,1);
+      lcd->print('*');
+      lcd->print(selectButtonName);
+    }
+    if(nextButton)
+    {
+      lcd->gotoXY(6,1);
+      lcd->print(nextButtonName);
+      lcd->print('>');
+    }
+  }
 }
 
 void PololuMenu::action(uint8_t index)

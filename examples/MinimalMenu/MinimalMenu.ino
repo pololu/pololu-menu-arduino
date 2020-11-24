@@ -93,10 +93,6 @@ void setup()
   menu.setLcd(lcd);
   menu.setSelectButton(buttonB, 'B');
   menu.setNextButton(buttonC, 'C');
-
-  // Customize the second line to not show an A, since we are not
-  // using that button.
-  menu.setSecondLine(F("   *B C>"));
 }
 
 void loop()
