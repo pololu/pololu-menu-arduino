@@ -5,7 +5,7 @@
 This is a C++ library for the Arduino IDE that makes it easy to create
 basic menus with an 8x2 character LCD, some buttons, and an optional
 buzzer to beep when the buttons are pressed.  Adding a menu to your
-project with this library will require about 1k of FLASH.
+project with this library will require about 1k of flash.
 
 ## Example usage
 
