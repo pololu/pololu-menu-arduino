@@ -38,4 +38,6 @@ This library depends on the
 [PololuBuzzer](https://github.com/pololu/pololu-buzzer-arduino), and
 [Pushbutton](https://github.com/pololu/pushbutton-arduino) libraries;
 it should work on other Arduino platforms that can support these
-libraries.
+libraries.  For the Zumo, Balboa, and A-Star 32U4 platforms, these
+libraries are included within the corresponding library for the
+platform and should not be installed separately.
