@@ -10,6 +10,8 @@ project with this library will require about 1k of FLASH.
 ## Example usage
 
 ```cpp
+PololuMenu menu;
+
 void setup()
 {
   static const PololuMenu::Item items[] = {
@@ -23,6 +25,11 @@ void setup()
   menu.setLcd(buzzer);
   menu.setSelectButton(buttonA, 'A');
   menu.setNextButton(buttonB, 'B');
+}
+
+void loop()
+{
+  menu.select();
 }
 ```
 
