@@ -73,7 +73,7 @@ public:
   // option.  By default it displays "<A .B C>".  To replace the
   // special characters with nicer arrows and a dot, you could
   // use F("\x7f" "A \xa5" "B C\x7e").
-  void setSecondLine(__FlashStringHelper * text)
+  void setSecondLine(const __FlashStringHelper * text)
   {
     secondLine = text;
   }
@@ -92,7 +92,7 @@ private:
   char selectButtonName;
   char nextButtonName;
 
-  __FlashStringHelper * secondLine;
+  const __FlashStringHelper * secondLine;
 
   bool lcdNeedsUpdate = true;
 };
