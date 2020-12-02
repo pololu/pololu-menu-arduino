@@ -5,7 +5,7 @@ static const char PololuMenu::beepPrevious[] PROGMEM = "!c32";
 static const char PololuMenu::beepSelect[] PROGMEM = "!e32";
 static const char PololuMenu::beepNext[] PROGMEM = "!g32";
 
-void PololuMenu::setItems(Item * items, uint8_t itemCount)
+void PololuMenu::setItems(const Item * items, uint8_t itemCount)
 {
   this->items = items;
   this->itemCount = itemCount;

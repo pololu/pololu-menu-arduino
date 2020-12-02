@@ -22,7 +22,7 @@ public:
   };
 
   void restart();
-  void setItems(Item * items, uint8_t itemCount);
+  void setItems(const Item * items, uint8_t itemCount);
 
   void setLcd(PololuHD44780Base &);
   void setBuzzer(PololuBuzzer &);
@@ -79,7 +79,7 @@ public:
   }
 
 private:
-  Item * items;
+  const Item * items;
   uint8_t itemCount;
   uint8_t lcdItemIndex;
   PololuHD44780Base * lcd;
