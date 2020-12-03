@@ -48,3 +48,8 @@ it should work on other Arduino platforms that can support these
 libraries.  For the Zumo, Balboa, and A-Star 32U4 platforms, these
 libraries are included within the corresponding library for the
 platform and should not be installed separately.
+
+## Version history
+
+* 1.0.1 (2020-12-01): Added `const` specification to `setSecondLine()` and `setItems()`; CI testing.
+* 1.0.0 (2020-11-24): Initial release.
