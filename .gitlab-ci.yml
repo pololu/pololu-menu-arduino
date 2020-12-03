@@ -1,0 +1,15 @@
+image: $CI_REGISTRY_IMAGE/nixos/nix:2.3.6
+
+stages:
+  - ci
+
+ci:
+  stage: ci
+  tags:
+    - nix
+  variables:
+    ARDUINO_CI_ONLY_BOARDS: arduino:avr:leonardo
+    ARDUINO_CI_LIBRARY_ARCHIVES: AStar32U4=https://github.com/pololu/a-star-32u4-arduino-library/archive/1.1.0.tar.gz=1z5mi80g2b4f9zbarl2kva2wr0flz8ym9nsb34p3rj5w4sq6zpdx
+  script:
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/dev/arduino-ci.git ci
+    - ci/ci
