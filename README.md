@@ -54,5 +54,6 @@ platform and should not be installed separately.
 
 ## Version history
 
+* 1.0.2 (2020-12-03): Added CI testing for GitHub; adapt examples for CI
 * 1.0.1 (2020-12-01): Added `const` specification to `setSecondLine()` and `setItems()`; CI testing.
 * 1.0.0 (2020-11-24): Initial release.
