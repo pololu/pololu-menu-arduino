@@ -8,7 +8,7 @@
 // Uncomment one of the following sections for your
 // platform, or customize your own.
 
-/* Comment out or remove this block if you are not using an A-Star 32U4 */
+/*
 // For Pololu A-Star 32U4
 // https://www.pololu.com/a-star
 
@@ -16,7 +16,7 @@
 AStar32U4LCD lcd;
 AStar32U4ButtonB buttonB;
 AStar32U4ButtonC buttonC;
-/* end of block */
+*/
 
 /*
 // For Pololu 3pi+ 32U4
@@ -48,6 +48,14 @@ Balboa32U4ButtonB buttonB;
 Balboa32U4ButtonC buttonC;
 */
 
+#ifdef __ARDUINO_CI
+// For continuous integration testing using arduino-ci:
+//  https://github.com/pololu/arduino-ci
+#include <AStar32U4.h>
+AStar32U4LCD lcd;
+AStar32U4ButtonB buttonB;
+AStar32U4ButtonC buttonC;
+#endif
 
 PololuMenu menu;
 

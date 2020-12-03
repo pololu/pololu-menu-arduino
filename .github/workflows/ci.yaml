@@ -1,0 +1,27 @@
+name: "CI"
+on:
+  pull_request:
+  push:
+jobs:
+  ci:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout this repository
+      uses: actions/checkout@v2.3.4
+    - name: Checkout arduino-ci
+      uses: actions/checkout@v2.3.4
+      with:
+         repository: pololu/arduino-ci
+         path: ci
+    - name: Cache for arduino-ci
+      uses: actions/cache@v2.1.3
+      with:
+        path: |
+          ~/.arduino15
+        key: ${{ runner.os }}-arduino
+    - name: Install nix
+      uses: cachix/install-nix-action@v12
+    - run: ci/ci
+      env:
+        ARDUINO_CI_ONLY_BOARDS: arduino:avr:leonardo
+        ARDUINO_CI_LIBRARY_ARCHIVES: AStar32U4=https://github.com/pololu/a-star-32u4-arduino-library/archive/1.1.0.tar.gz=1z5mi80g2b4f9zbarl2kva2wr0flz8ym9nsb34p3rj5w4sq6zpdx
