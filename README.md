@@ -2,6 +2,8 @@
 
 ## Summary
 
+<img align="right" src="https://a.pololu-files.com/picture/0J11105.175w.jpg?b255cdfe056cecdabbae18657574754b">
+
 This is a C++ library for the Arduino IDE that makes it easy to create
 basic menus with an 8x2 character LCD, some buttons, and an optional
 buzzer to beep when the buttons are pressed.  Adding a menu to your
@@ -22,9 +24,10 @@ void setup()
   menu.setItems(items, 2);
 
   menu.setLcd(lcd);
-  menu.setLcd(buzzer);
-  menu.setSelectButton(buttonA, 'A');
-  menu.setNextButton(buttonB, 'B');
+  menu.setBuzzer(buzzer);
+  menu.setPreviousButton(buttonA, 'A');
+  menu.setSelectButton(buttonB, 'B');
+  menu.setNextButton(buttonC, 'C');
 }
 
 void loop()
