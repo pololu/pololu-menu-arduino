@@ -21,27 +21,11 @@ public:
     void (* action)();
   };
 
-  void restart()
-  {
-    lcdItemIndex = 0;
-    lcdNeedsUpdate = true;
-  }
+  void restart();
+  void setItems(const Item * items, uint8_t itemCount);
 
-  void setItems(const Item * items, uint8_t itemCount)
-  {
-    this->items = items;
-    this->itemCount = itemCount;
-  }
-
-  void setLcd(PololuHD44780Base & l)
-  {
-    lcd = &l;
-  }
-
-  void setBuzzer(PololuBuzzer & b)
-  {
-    buzzer = &b;
-  }
+  void setLcd(PololuHD44780Base &);
+  void setBuzzer(PololuBuzzer &);
 
   void setPreviousButton(PushbuttonBase &b, char name)
   {
@@ -68,131 +52,22 @@ public:
     setNextButton(next, 'C');
   }
 
-  void lcdUpdate(uint8_t index)
-  {
-    if (lcd == NULL) { return; }
-    lcd->clear();
-    lcd->print(items[index].name);
-    lcd->gotoXY(0, 1);
-    if (secondLine != NULL)
-    {
-      lcd->print(secondLine);
-    }
-    else
-    {
-      // Generate something based on the key names
-      if (previousButton)
-      {
-        lcd->print('<');
-        lcd->print(previousButtonName);
-      }
-      if (selectButton)
-      {
-        lcd->gotoXY(3,1);
-        lcd->print('*');
-        lcd->print(selectButtonName);
-      }
-      if (nextButton)
-      {
-        lcd->gotoXY(6,1);
-        lcd->print(nextButtonName);
-        lcd->print('>');
-      }
-    }
-  }
+  void lcdUpdate(uint8_t index);
 
-  void action(uint8_t index)
-  {
-    items[index].action();
-  }
+  void action(uint8_t index);
 
   // This function is meant to be called repeatedly in a loop.
   // Prompts the user to choose one of the menu items.
   // If a button is pressed, take the appropriate action;
   // return true if a menu item was selected.
-  bool select()
-  {
-    if(lcdNeedsUpdate)
-    {
-      lcdUpdate(lcdItemIndex);
-    }
-
-    // Assume we will need to update, but set to false if
-    // there are no button events.
-    lcdNeedsUpdate = true;
-
-    char button = buttonMonitor();
-    if(button && button == previousButtonName)
-    {
-      // The "previous" button was pressed so decrement the index.
-      if (lcdItemIndex == 0)
-      {
-        lcdItemIndex = itemCount - 1;
-      }
-      else
-      {
-        lcdItemIndex--;
-      }
-      return false;
-    }
-
-    if(button && button == nextButtonName)
-    {
-      // The "next" button was pressed so increase the index.
-      if (lcdItemIndex >= itemCount - 1)
-      {
-        lcdItemIndex = 0;
-      }
-      else
-      {
-        lcdItemIndex++;
-      }
-      return false;
-    }
-
-    if(button && button == selectButtonName)
-    {
-      // The "select" button was pressed so run the item and return true.
-      action(lcdItemIndex);
-      return true;
-    }
-
-    // Nothing happened, no update necessary
-    lcdNeedsUpdate = false;
-    return false;
-  }
-
+  bool select();
 
   // This function watches for button presses.  If a button is
   // pressed, it beeps a corresponding beep and it returns 'A',
   // 'B', or 'C' depending on what button was pressed.  If no
   // button was pressed, it returns 0.  This function is meant to
   // be called repeatedly in a loop.
-  char buttonMonitor()
-  {
-    if ((previousButton != NULL) && previousButton->getSingleDebouncedPress())
-    {
-      if(buzzer != NULL)
-        buzzer->playFromProgramSpace(beepPrevious);
-      return previousButtonName;
-    }
-
-    if ((selectButton != NULL) && selectButton->getSingleDebouncedPress())
-    {
-      if(buzzer != NULL)
-        buzzer->playFromProgramSpace(beepSelect);
-      return selectButtonName;
-    }
-
-    if ((nextButton != NULL) && nextButton->getSingleDebouncedPress())
-    {
-      if(buzzer != NULL)
-        buzzer->playFromProgramSpace(beepNext);
-      return nextButtonName;
-    }
-
-    return 0;
-  }
+  char buttonMonitor();
 
   // Set the second line of text to be displayed below each menu
   // option.  By default it displays "<A .B C>".  To replace the
