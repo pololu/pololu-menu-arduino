@@ -4,22 +4,18 @@
 
 #pragma once
 
+#include <PololuMenuMain.h>
 #include <PololuHD44780.h>
-#include <PololuBuzzer.h>
-#include <Pushbutton.h>
 
-class PololuMenu
+class PololuMenu : public PololuMenuMain<PololuHD44780>
 {
 public:
+  // Note: These are just here for backwards compatibility.
+  // We recommend using the beeps defined in the PololuMenuBeep
+  // namespace instead.
   static const char beepPrevious[] PROGMEM;
   static const char beepSelect[] PROGMEM;
   static const char beepNext[] PROGMEM;
-
-  struct Item
-  {
-    const __FlashStringHelper * name;
-    void (* action)();
-  };
 
   void restart()
   {
@@ -173,21 +169,21 @@ public:
     if ((previousButton != NULL) && previousButton->getSingleDebouncedPress())
     {
       if(buzzer != NULL)
-        buzzer->playFromProgramSpace(beepPrevious);
+        buzzer->playFromProgramSpace(PololuMenuBeep::beepPrevious);
       return previousButtonName;
     }
 
     if ((selectButton != NULL) && selectButton->getSingleDebouncedPress())
     {
       if(buzzer != NULL)
-        buzzer->playFromProgramSpace(beepSelect);
+        buzzer->playFromProgramSpace(PololuMenuBeep::beepSelect);
       return selectButtonName;
     }
 
     if ((nextButton != NULL) && nextButton->getSingleDebouncedPress())
     {
       if(buzzer != NULL)
-        buzzer->playFromProgramSpace(beepNext);
+        buzzer->playFromProgramSpace(PololuMenuBeep::beepNext);
       return nextButtonName;
     }
 
