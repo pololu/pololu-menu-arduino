@@ -58,6 +58,7 @@ You will need one of the following display libraries:
 
 ## Version history
 
+* 2.0.0 (2021-08-02): Support multiple types of displays using templating; see the examples for how to use the tmeplate. Note that you will also need to change `PololuMenu::Item` to `PololuMenuItem`.
 * 1.0.2 (2020-12-03): Added CI testing for GitHub; adapt examples for CI
 * 1.0.1 (2020-12-01): Added `const` specification to `setSecondLine()` and `setItems()`; CI testing.
 * 1.0.0 (2020-11-24): Initial release.
