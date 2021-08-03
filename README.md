@@ -12,18 +12,18 @@ project with this library will require about 1k of flash.
 ## Example usage
 
 ```cpp
-PololuMenu menu;
+PololuMenu<typeof(lcd)> menu;
 
 void setup()
 {
-  static const PololuMenu::Item items[] = {
+  static const PololuMenuItem items[] = {
     { F("Item one"), myFunction1 },
     { F("Item two"), myFunction2 },
   };
 
   menu.setItems(items, 2);
 
-  menu.setLcd(lcd);
+  menu.setDisplay(lcd);
   menu.setBuzzer(buzzer);
   menu.setPreviousButton(buttonA, 'A');
   menu.setSelectButton(buttonB, 'B');
@@ -44,13 +44,17 @@ void loop()
 * [Pololu A-Star 32U4](https://www.pololu.com/a-star)
 
 This library depends on the
-[PololuHD44780](https://github.com/pololu/pololu-hd44780-arduino),
 [PololuBuzzer](https://github.com/pololu/pololu-buzzer-arduino), and
 [Pushbutton](https://github.com/pololu/pushbutton-arduino) libraries;
 it should work on other Arduino platforms that can support these
 libraries.  For the Zumo, Balboa, and A-Star 32U4 platforms, these
 libraries are included within the corresponding library for the
 platform and should not be installed separately.
+
+You will need one of the following display libraries:
+
+* [PololuHD44780](https://github.com/pololu/pololu-hd44780-arduino);
+* [PololuOLED](https://github.com/pololu/pololu-oled);
 
 ## Version history
 
