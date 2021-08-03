@@ -53,8 +53,8 @@ platform and should not be installed separately.
 
 You will need one of the following display libraries:
 
-* [PololuHD44780](https://github.com/pololu/pololu-hd44780-arduino);
-* [PololuOLED](https://github.com/pololu/pololu-oled);
+* [PololuHD44780](https://github.com/pololu/pololu-hd44780-arduino)
+* [PololuOLED](https://github.com/pololu/pololu-oled)
 
 ## Version history
 
